@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">frontend</string>
+
+    <string name="username_prompt">Enter username</string>
+    <string name="email_prompt">Enter email</string>
+    <string name="password_prompt">Enter password</string>
+
+    <string name="view_chart">View charts</string>
+    <string name="view_news">View news</string>
+
 </resources>
