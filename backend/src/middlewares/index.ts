@@ -29,10 +29,11 @@ export const isAuthenticated = async(req: express.Request, res: express.Response
         }
 
         const existingUser = await getUserBySessionToken(sessionToken);
+
         if (!existingUser) {
             return res.sendStatus(403);
         }
-        merge(req, {identity: existingUser })
+        merge(req, { identity: existingUser })
         return next()
     } 
     catch(error) {

@@ -26,10 +26,10 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Stock Tracker</h3>
 
   <p align="center">
-    project_description
+    A new app to track stocks you are interested in!
     <br />
     <a href="https://github.com/xytuang/stock_tracker"><strong>Explore the docs »</strong></a>
     <br />
@@ -108,7 +108,7 @@
 
 ### Installation
 
-1. Get a free API Key at [https://https://rapidapi.com/sparior/api/yahoo-finance15.com](https://rapidapi.com/sparior/api/yahoo-finance15://example.com)
+1. Get a free API Key at [https://rapidapi.com/sparior/api/yahoo-finance15.com](https://rapidapi.com/sparior/api/yahoo-finance15://example.com)
 2. Clone the repo
    ```sh
    git clone https://github.com/xytuang/stock_tracker.git
