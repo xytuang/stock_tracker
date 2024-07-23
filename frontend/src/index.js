@@ -9,6 +9,7 @@ import Root from "./Root";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Landing from "./components/Landing";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./AuthContext";
 
 
@@ -28,7 +29,7 @@ import { AuthProvider } from "./AuthContext";
     },
     {
       path: "/landing",
-      element: <Landing/>
+      element: <ProtectedRoute element={<Landing/>} />
     }
   ]);
   

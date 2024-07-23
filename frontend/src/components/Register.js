@@ -55,6 +55,7 @@ const Register = () => {
             <button type="submit">Submit</button>
           </Form>
         </Formik>
+        <button onClick={() => navigate("/login")}>Login here</button>
       </div>
     );
   }

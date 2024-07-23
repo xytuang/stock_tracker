@@ -2,7 +2,7 @@ import { Formik, Field, Form } from "formik"
 import axios from "axios"
 import { AuthContext } from "../AuthContext";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const loginUser = async (values) => {
   try {
@@ -50,6 +50,7 @@ const Login = () => {
             <button type="submit">Submit</button>
           </Form>
         </Formik>
+        <button onClick={() => navigate("/register")}>Register here</button>
       </div>
     );
   }
