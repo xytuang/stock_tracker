@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Header from './Header';
 import { Formik, Form , Field } from 'formik';
 import axios from 'axios';
+import SearchResult from './SearchResult';
+import Portfolio from './Portfolio';
 
 const searchTicker = async (values) => {
     try {
@@ -14,6 +16,7 @@ const searchTicker = async (values) => {
 }
 const Landing = () => {
     const [tickers, setTickers] = useState([])
+    const [visiblePortfolio, setVisiblePortfolio] = useState(false)
     return (
         <div>
             <Header title={"Landing Page"}/>
@@ -44,10 +47,14 @@ const Landing = () => {
             </Formik>
             <div>
                 {
-                    tickers.map((ticker, index) => (ticker.type === "S" ? (
-                        <div key={index}>Symbol: {ticker.symbol} Name: {ticker.name}</div>
-                    ) : null ))
+                    tickers.map((ticker, index) => (ticker.type === "S" ? (<SearchResult index={index} ticker={ticker}/>) : null ))
                 }
+            </div>
+            <div>
+                <button onClick={() => setVisiblePortfolio(!visiblePortfolio)}>Show positions</button>
+            </div>
+            <div>
+                {visiblePortfolio ? <Portfolio/> : null}
             </div>
         </div>
     );
