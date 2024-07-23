@@ -28,8 +28,10 @@ const Login = () => {
             try {
                 const res = await loginUser(values)
                 if (res.status === 200) {
-                  //const user = res.data
-                  console.log("Login success")
+                  const user = res.data
+                  //console.log(user._id)
+                  window.localStorage.setItem("id", user._id)
+                  //console.log(window.localStorage.getItem("id"))
                   setIsAuthenticated(true)
                   navigate("/landing")
                 }

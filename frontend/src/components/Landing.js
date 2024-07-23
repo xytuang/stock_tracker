@@ -22,6 +22,7 @@ const Landing = () => {
     const [askPrices, setAskPrices] = useState([])
     const [time, setTime] = useState([])
 
+
     const [tickers, setTickers] = useState([])
 
     const [graphTicker, setGraphTicker] = useState("AAPL")
@@ -54,7 +55,7 @@ const Landing = () => {
                 })
         }
         loadData()
-        const interval = setInterval(() => loadData(), 180000) //fetching every 3 minutes
+        const interval = setInterval(() => loadData(), 360000) //fetching every 3 minutes
         return () => {
             clearInterval(interval)
         }
@@ -65,20 +66,20 @@ const Landing = () => {
             <Header title={"Welcome!"}/>
             <Formik
                 initialValues={{ ticker: "" }}
-                onSubmit={async (values) => {
-                try {
-                    const res = await searchTicker(values)
-                    if (res.status === 200) {
-                        const data = res.data
-                        setTickers(data.body)
+                    onSubmit={async (values) => {
+                    try {
+                        const res = await searchTicker(values)
+                        if (res.status === 200) {
+                            const data = res.data
+                            setTickers(data.body)
+                        }
+                        else {
+                            console.log("Login failed")
+                        }
                     }
-                    else {
-                        console.log("Login failed")
+                    catch (error) {
+                        console.error("Error logging in: ", error)
                     }
-                }
-                catch (error) {
-                    console.error("Error logging in: ", error)
-                }
                 }}
             >
                 <Form>

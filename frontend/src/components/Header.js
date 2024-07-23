@@ -8,6 +8,7 @@ const Header = ({title}) => {
     const handleLogout = async () => {
         try {
             await axios.post('http://localhost:8080/auth/logout', {}, { withCredentials: true });
+            window.localStorage.clear()
             setIsAuthenticated(false);
         } catch (error) {
             console.error('Error logging out:', error);
