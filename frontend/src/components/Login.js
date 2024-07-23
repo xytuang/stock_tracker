@@ -28,8 +28,8 @@ const Login = () => {
             try {
                 const res = await loginUser(values)
                 if (res.status === 200) {
-                  const user = res.data
-                  console.log("Login success", user)
+                  //const user = res.data
+                  console.log("Login success")
                   setIsAuthenticated(true)
                   navigate("/landing")
                 }
