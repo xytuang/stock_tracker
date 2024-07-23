@@ -7,7 +7,16 @@ const UserSchema = new mongoose.Schema({
         password: { type: String, required: true, select: false },
         salt: { type: String, select: false },
         sessionToken: { type: String, select: false }
-    }
+    },
+    portfolio: [
+        {
+            name: { type: String, required: true },
+            ticker: { type: String, required: true },
+            price: { type: String, required: true },
+            quantity: { type: String, required: true },
+
+        }
+    ]
 })
 
 export const UserModel = mongoose.model('User', UserSchema);
