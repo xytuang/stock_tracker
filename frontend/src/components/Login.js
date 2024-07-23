@@ -1,20 +1,44 @@
 import { Formik, Field, Form } from "formik"
 import axios from "axios"
+import { AuthContext } from "../AuthContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+const loginUser = async (values) => {
+  try {
+      const response = await axios.post("http://localhost:8080/auth/login", {
+          email: values.email,
+          password: values.password,
+      }, {withCredentials: true});
+      return response;
+  } catch (error) {
+      throw error;
+  }
+};
+
+const Login = () => {
+  const navigate = useNavigate()
+  const { setIsAuthenticated } = useContext(AuthContext)
     return (
-      <div className="Login">
+      <div className="login">
         <h1>Login</h1>
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={async (values) => {
-            
-            const res = await axios.post("http://localhost:8080/auth/login", {email: values.email, password: values.password })
-            if (res.status != 200) {
-                alert("Invalid credentials!")
+            try {
+                const res = await loginUser(values)
+                if (res.status === 200) {
+                  const user = res.data
+                  console.log("Login success", user)
+                  setIsAuthenticated(true)
+                  navigate("/landing")
+                }
+                else {
+                  console.log("Login failed")
+                }
             }
-            else {
-                alert(JSON.stringify(values, null, 2));
+            catch (error) {
+              console.error("Error logging in: ", error)
             }
           }}
         >

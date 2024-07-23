@@ -12,6 +12,7 @@ import users_routes from './routes/users_routes'
 
 const app = express();
 app.use(cors({
+  origin: "http://localhost:3000",
   credentials: true
 }));
 

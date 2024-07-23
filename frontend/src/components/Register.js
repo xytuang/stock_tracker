@@ -1,15 +1,42 @@
 import { Formik, Field, Form } from "formik";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function Register() {
+const registerUser = async (values) => {
+  try {
+      const response = await axios.post("http://localhost:8080/auth/register", {
+          email: values.email,
+          password: values.password,
+          username: values.username
+      }, { withCredentials: true });
+      return response;
+  } catch (error) {
+      throw error;
+  }
+};
+
+const Register = () => {
+  const navigate = useNavigate()
     return (
-      <div className="Login">
+      <div className="Register">
         <h1>Register</h1>
         <Formik
           initialValues={{ username: "", email: "", password: ""}}
           onSubmit={async (values) => {
-            const res = await axios.post("http://localhost:8080/auth/login", {email: values.email, password: values.password, username: values.username})
-            alert(JSON.stringify(values, null, 2));
+            try {
+              const res = await registerUser(values)
+              if (res.status === 200) {
+                const user = res.data
+                console.log("Register success", user)
+                navigate("/login")
+              }
+              else {
+                console.log("Register failed")
+              }
+            }
+            catch (error) {
+              console.error("Error registering: ", error)
+            }
           }}
         >
           <Form>

@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { login, register } from "../controllers/authenticationController";
+import { check, login, register } from "../controllers/authenticationController";
 
 const authenticationRouter = Router();
+authenticationRouter.get('/check', check)
 authenticationRouter.post('/register', register)
 authenticationRouter.post('/login', login)
 

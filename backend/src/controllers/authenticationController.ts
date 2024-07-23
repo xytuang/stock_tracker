@@ -1,6 +1,27 @@
 import express from "express";
-import { createUser, getUserByEmail } from "../db/users";
+
+import { createUser, getUserByEmail, getUserBySessionToken } from "../db/users";
 import { authentication, random } from "../helpers"; 
+
+export const check = async(req: express.Request, res: express.Response) => {
+    try {
+        const token = req.cookies.STOCK_TRACKER_AUTH
+        if (!token) {
+            return res.sendStatus(401);
+        }
+
+        const user = await getUserBySessionToken(token);
+
+        if (!user) {
+            return res.sendStatus(401);
+        }
+        return res.status(200).json(user).end();
+    } 
+    catch(error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+}
 
 export const register = async(req: express.Request, res: express.Response) => {
     try {
@@ -54,7 +75,13 @@ export const login = async (req: express.Request, res: express.Response) => {
 
         await user.save();
 
-        res.cookie('STOCK_TRACKER_AUTH', user.authentication.sessionToken, { domain: 'localhost', path: '/' });
+        res.cookie('STOCK_TRACKER_AUTH', user.authentication.sessionToken, { 
+            httpOnly: true,
+            secure: true,
+            sameSite: true,
+            domain: 'localhost', 
+            path: '/' 
+        });
 
         return res.status(200).json(user).end();
     }

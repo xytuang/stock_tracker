@@ -1,24 +1,16 @@
-import { Outlet, Link } from "react-router-dom"
+import React, { useContext } from "react"
+import { AuthContext } from "./AuthContext"
+import { Navigate, Outlet } from "react-router-dom"
+import axios from "axios"
+axios.defaults.withCredentials = true
 
-function Root() {
-    return (
-        <div>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/login">Login</Link>
-                    </li>
-                    <li>
-                        <Link to="/register">Register</Link>
-                    </li>
-                </ul>
-            </nav>
-            <Outlet/>
-        </div>
-    )
+
+const Root = () => {
+    const { isAuthenticated } = useContext(AuthContext)
+    if (isAuthenticated) {
+        return <Outlet/>
+    }
+    return <Navigate to="/login"/>
+    
 }
-
 export default Root
