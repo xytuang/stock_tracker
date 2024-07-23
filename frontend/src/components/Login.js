@@ -2,7 +2,7 @@ import { Formik, Field, Form } from "formik"
 import axios from "axios"
 import { AuthContext } from "../AuthContext";
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const loginUser = async (values) => {
   try {

@@ -1,24 +1,54 @@
-// Landing.js
-import React, { useContext } from 'react';
-import { AuthContext } from '../AuthContext';
+import React, { useState } from 'react';
+import Header from './Header';
+import { Formik, Form , Field } from 'formik';
 import axios from 'axios';
 
+const searchTicker = async (values) => {
+    try {
+        const response = await axios.get(`http://localhost:8080/api/search?search=${values.ticker}`, {
+        }, {withCredentials: true});
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
 const Landing = () => {
-    const { setIsAuthenticated } = useContext(AuthContext);
-
-    const handleLogout = async () => {
-        try {
-            await axios.post('http://localhost:8080/auth/logout', {}, { withCredentials: true });
-            setIsAuthenticated(false);
-        } catch (error) {
-            console.error('Error logging out:', error);
-        }
-    };
-
+    const [tickers, setTickers] = useState([])
     return (
         <div>
-            <h1>Welcome to the Landing Page</h1>
-            <button onClick={handleLogout}>Logout</button>
+            <Header title={"Landing Page"}/>
+            <Formik
+                initialValues={{ ticker: "" }}
+                onSubmit={async (values) => {
+                try {
+                    const res = await searchTicker(values)
+                    if (res.status === 200) {
+                        const data = res.data
+                        console.log("Login success", data)
+                        setTickers(data.body)
+                    }
+                    else {
+                        console.log("Login failed")
+                    }
+                }
+                catch (error) {
+                    console.error("Error logging in: ", error)
+                }
+                }}
+            >
+                <Form>
+                    <label htmlFor="ticker">Ticker: </label>
+                    <Field name="ticker" type="text" />
+                    <button type="submit">Search ticker</button>
+                </Form>
+            </Formik>
+            <div>
+                {
+                    tickers.map((ticker, index) => (ticker.type === "S" ? (
+                        <div key={index}>Symbol: {ticker.symbol} Name: {ticker.name}</div>
+                    ) : null ))
+                }
+            </div>
         </div>
     );
 };
