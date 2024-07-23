@@ -67,11 +67,10 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-https://github.com/xytuang/stock_tracker/blob/assets/stock_tracker.mp4
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
+View here! https://youtu.be/l-4EZIjy_Pg
 
 ### Built With
 
