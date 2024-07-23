@@ -2,7 +2,7 @@ import { Formik, Field, Form } from "formik"
 import axios from "axios"
 import { AuthContext } from "../AuthContext";
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const loginUser = async (values) => {
   try {
@@ -29,7 +29,9 @@ const Login = () => {
                 const res = await loginUser(values)
                 if (res.status === 200) {
                   const user = res.data
-                  console.log("Login success", user)
+                  //console.log(user._id)
+                  window.localStorage.setItem("id", user._id)
+                  //console.log(window.localStorage.getItem("id"))
                   setIsAuthenticated(true)
                   navigate("/landing")
                 }

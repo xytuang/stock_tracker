@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getUsers, deleteUserById, getUserById } from "../db/users";
+import { getUsers, deleteUserById, getUserById, getUserBySessionToken } from "../db/users";
 
 export const getAllUsers = async(req: express.Request, res: express.Response) => {
     try {
@@ -42,6 +42,54 @@ export const updateUser = async(req: express.Request, res: express.Response) => 
         await user.save();
 
         return res.status(200).json(user).end();
+    }
+    catch(error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+}
+
+export const getPortfolio = async(req: express.Request, res: express.Response) => {
+    try {
+        const sessionToken = req.cookies['STOCK_TRACKER_AUTH'];
+        if (!sessionToken) {
+            return res.sendStatus(403);
+        }
+
+        const existingUser = await getUserBySessionToken(sessionToken);
+
+        if (!existingUser) {
+            return res.sendStatus(403);
+        }
+        return res.status(200).json(existingUser).end();
+    }
+    catch(error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+}
+
+export const updatePortfolio = async(req: express.Request, res: express.Response) => {
+    try {
+        const sessionToken = req.cookies['STOCK_TRACKER_AUTH'];
+        if (!sessionToken) {
+            return res.sendStatus(403);
+        }
+
+        const existingUser = await getUserBySessionToken(sessionToken);
+
+        if (!existingUser) {
+            return res.sendStatus(403);
+        }
+
+        const { name, ticker, price, quantity } = req.body;
+        if (!name || !ticker || !price || !quantity) {
+            return res.sendStatus(400);
+        }
+
+        existingUser.portfolio.push({name, ticker, price, quantity});
+        await existingUser.save();
+        return res.status(200).json(existingUser).end();
     }
     catch(error) {
         console.log(error);
