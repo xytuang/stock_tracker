@@ -67,8 +67,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-<video src='stock_tracker.mp4'></video>
+https://github.com/xytuang/stock_tracker/blob/assets/stock_tracker.mp4
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
