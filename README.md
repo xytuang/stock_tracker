@@ -68,7 +68,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<video src='stock_tracker.mov' width=180/>
+<video src='stock_tracker.mov' width=180></video>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
